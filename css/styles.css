@@ -54,12 +54,12 @@ input[type="text"] {
   color: white;
   font-family: "Inclusive Sans", sans-serif;
   border-radius: 0.5em;
+  font-size: 1em;
 }
 
 input[type="text"] {
   padding: 0.8em;
   text-align: center;
-  font-size: 1em;
 }
 
 .button,
@@ -117,6 +117,10 @@ input[type="color"]::-moz-color-swatch {
   border-radius: 0.5em;
   border: none;
   padding: none;
+}
+
+#start-game-button {
+  margin-top: 1em;
 }
 
 /* UTILITY */
