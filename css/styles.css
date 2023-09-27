@@ -94,6 +94,30 @@ input[type="text"] {
   border-left: none;
 }
 
+/* COLOR INPUT */
+
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 3em;
+  height: 3em;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: none;
+}
+input[type="color"]::-webkit-color-swatch {
+  border-radius: 0.5em;
+  border: none;
+  padding: none;
+}
+input[type="color"]::-moz-color-swatch {
+  border-radius: 0.5em;
+  border: none;
+  padding: none;
+}
+
 /* UTILITY */
 
 .shadow {
