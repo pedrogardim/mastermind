@@ -1,5 +1,6 @@
 export class GameMenuController {
   difficulty = 0;
+  colors = ["#F76C5E", "#F68E5F", "#F5DD90", "#16DB93"];
   constructor() {
     this.init();
   }
@@ -8,7 +9,10 @@ export class GameMenuController {
     this.difficultyButtons = document.querySelectorAll(
       "#difficulty-btn-group > *"
     );
-    this.colorInputsWrapper = document.getElementById("color-inputs-wrapper");
+    this.colorInputs = document.querySelectorAll("#color-inputs-wrapper > *");
+
+    this.colorInputs.forEach((input, i) => (input.value = this.colors[i]));
+
     this.initializeEvents();
     this.update();
   }
@@ -17,6 +21,11 @@ export class GameMenuController {
       button.addEventListener("click", () => {
         this.difficulty = i;
         this.update();
+      });
+    });
+    this.colorInputs.forEach((input, i) => {
+      input.addEventListener("change", (e) => {
+        this.colors[i] = e.target.value;
       });
     });
   }
