@@ -70,7 +70,8 @@ input[type="text"] {
 }
 
 .button:hover,
-.button-group > div:hover {
+.button-group > div:hover,
+.btn-group-active {
   background-color: white;
   color: var(--bg-color-1);
 }
