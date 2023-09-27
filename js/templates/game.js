@@ -1,5 +1,18 @@
 export const gameTemplate = `
     <h1 class="title">MasterMind</h1>
-        <h2>This is the game</h2>
+    <h2>This is the game</h2>
+    <div class="bottom-container">
+        <div class="color-input-container">
+        <div class="game-color-input"></div>
+        <div class="game-color-input"></div>
+        <div class="game-color-input"></div>
+        <div class="game-color-input"></div>
+        <div class="button">Check</div>
+    </div>
+    <div class="color-buttons-container">
+        <div class="color-button"></div>
+        <div class="color-button"></div>
+        <div class="color-button"></div>
+        <div class="color-button"></div>
     </div>
 `;
