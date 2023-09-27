@@ -20,6 +20,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: "Inclusive Sans", sans-serif;
+  color: white;
 }
 
 a {
@@ -34,7 +35,66 @@ a {
   flex-direction: column;
   width: 900px;
   max-width: 100%;
+  animation: fadeIn 1s forwards;
+  opacity: 0;
 }
+
+/* UI */
+
+.label {
+  margin-top: 1.3em;
+  margin-bottom: 0.5em;
+}
+
+.button,
+.button-group,
+input[type="text"] {
+  background-color: transparent;
+  border: 0.1em white solid;
+  color: white;
+  font-family: "Inclusive Sans", sans-serif;
+  border-radius: 0.5em;
+}
+
+input[type="text"] {
+  padding: 0.8em;
+  text-align: center;
+  font-size: 1em;
+}
+
+.button,
+.button-group > div {
+  padding: 0.8em 2em;
+  transition: background-color 0.2s ease-in, color 0.2s ease-in;
+  cursor: pointer;
+}
+
+.button:hover,
+.button-group > div:hover {
+  background-color: white;
+  color: var(--bg-color-1);
+}
+
+.card {
+  background-color: white;
+  padding: 10em;
+  border-radius: 2em;
+}
+
+.button-group {
+  display: flex;
+  overflow: hidden;
+}
+
+.button-group > div {
+  border-left: 0.1em white solid;
+}
+
+.button-group > div:first-child {
+  border-left: none;
+}
+
+/* UTILITY */
 
 .shadow {
   -webkit-box-shadow: 10px 10px 21px 0px rgba(0, 0, 0, 0.33);
@@ -46,28 +106,15 @@ a {
   border-radius: 1em;
 }
 
-.title {
-  color: white;
-  font-size: 3em;
-}
+/* ANIMATIONS */
 
-.button {
-  padding: 0.8em 2em;
-  background-color: transparent;
-  border: 0.1em white solid;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in, color 0.2s ease-in;
-  border-radius: 0.5em;
-}
-
-.button:hover {
-  background-color: white;
-  color: var(--bg-color-1);
-}
-
-.card {
-  background-color: white;
-  padding: 10em;
-  border-radius: 2em;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(2em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0em);
+  }
 }
