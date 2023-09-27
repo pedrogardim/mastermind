@@ -1,0 +1,9 @@
+.shadow {
+  -webkit-box-shadow: 10px 10px 21px 0px rgba(0, 0, 0, 0.33);
+  -moz-box-shadow: 10px 10px 21px 0px rgba(0, 0, 0, 0.33);
+  box-shadow: 10px 10px 21px 0px rgba(0, 0, 0, 0.33);
+}
+
+.rounded {
+  border-radius: 1em;
+}
