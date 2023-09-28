@@ -1,17 +1,17 @@
-import { gameTemplate } from "../templates/game.js";
-
+import { gameTemplate, createGameRow } from "../templates/game.js";
 export class GameController {
   userName;
   difficulty;
   targetColors;
   selectedColors = [];
   selectedColorInput = 0;
+  round = 1;
   constructor() {
     // this.init();
   }
   init({ userName, difficulty, colors }) {
-    const app = document.getElementById("app");
-    app.innerHTML = gameTemplate;
+    this.app = document.getElementById("app");
+    this.app.innerHTML = gameTemplate;
 
     this.userName = userName;
     this.difficulty = difficulty;
@@ -21,6 +21,7 @@ export class GameController {
       () => colors[Math.floor(Math.random() * colors.length)]
     );
 
+    this.gameRows = document.getElementById("game-rows");
     this.colorButtons = document.querySelectorAll(".color-button");
     this.colorInputs = document.querySelectorAll(".game-color-input");
     this.startButton = document.getElementById("check-button");
@@ -56,11 +57,15 @@ export class GameController {
       correctPos[index] = color === this.targetColors[index];
       correctColors[index] = this.targetColors.includes(color);
     });
+    this.gameRows.innerHTML += createGameRow(this.round, this.selectedColors);
+    this.selectedColors = [];
+    this.round++;
+    this.update();
   }
   update() {
     this.colorInputs.forEach((el, i) => {
       el.classList[this.selectedColorInput === i ? "add" : "remove"]("focused");
-      el.style.backgroundColor = this.selectedColors[i];
+      el.style.backgroundColor = this.selectedColors[i] || "";
     });
   }
 }

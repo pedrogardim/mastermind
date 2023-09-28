@@ -33,7 +33,7 @@ a {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 900px;
+  width: 40em;
   max-width: 100%;
   animation: fadeIn 1s forwards;
   opacity: 0;
@@ -197,6 +197,45 @@ input[type="color"]::-moz-color-swatch {
 .color-button:active {
   filter: brightness(0.6);
   box-shadow: 0 0 0;
+}
+
+/* GAME */
+
+#game-rows {
+  width: 100%;
+  color: #555;
+}
+
+.game-row {
+  margin: 0 1em;
+  margin-bottom: 1em;
+  background-color: white;
+  border-radius: 2em;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  gap: 0.2em;
+  padding: 0.4em;
+  height: 1px;
+  justify-content: center;
+  align-content: center;
+  height: 7em;
+}
+
+.row-counter {
+  background-color: #eee;
+  border-radius: 1em;
+  aspect-ratio: 1;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row-color-indicator {
+  aspect-ratio: 1;
+  margin: 10%;
+  border-radius: 1em;
 }
 
 /* UTILITY */
