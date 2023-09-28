@@ -25,12 +25,14 @@ export const gameTemplate = (numOfColors) => `
 export const createGameRow = (index, colors, checkArray) => `
     <div class="shadow game-row">
         <div class="row-counter"><span>${index}</span></div>
+        <div class="row-color-indicator-wrapper">
         ${[...colors, ...Array(checkArray.length - colors.length)]
           .map(
             (color) =>
               `<div class="row-color-indicator shadow" style="background-color:${color}"></div>`
           )
           .join("")}
+        </div>
         <div class="row-checker">
             ${checkArray
               .map((type) => `<div class="row-checker-dot ${type}"></div>`)
