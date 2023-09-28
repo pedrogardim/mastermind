@@ -57,9 +57,18 @@ export class GameController {
       correctPos[index] = color === this.targetColors[index];
       correctColors[index] = this.targetColors.includes(color);
     });
-    this.gameRows.innerHTML += createGameRow(this.round, this.selectedColors);
+
+    let checkArray = correctPos.map((e, i) =>
+      e ? "hasPosition" : correctColors[i] ? "hasColor" : ""
+    );
+
+    const row = document.createElement("div");
+    row.innerHTML = createGameRow(this.round, this.selectedColors, checkArray);
+    this.gameRows.append(row);
     this.selectedColors = [];
     this.round++;
+    this.gameRows.scrollTo({ top: 9999 });
+    this.selectedColorInput = 0;
     this.update();
   }
   update() {

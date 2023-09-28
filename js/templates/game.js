@@ -20,9 +20,16 @@ export const gameTemplate = `
 export const createGameRow = (index, colors, checkArray) => `
     <div class="shadow game-row">
         <div class="row-counter"><span>${index}</span></div>
-        <div class="row-color-indicator shadow" style="background-color:${colors[0]}"></div>
-        <div class="row-color-indicator shadow" style="background-color:${colors[1]}"></div>
-        <div class="row-color-indicator shadow" style="background-color:${colors[2]}"></div>
-        <div class="row-color-indicator shadow" style="background-color:${colors[3]}"></div>
+        ${[...colors, ...Array(4 - colors.length)]
+          .map(
+            (color) =>
+              `<div class="row-color-indicator shadow" style="background-color:${color}"></div>`
+          )
+          .reduce((a, b) => a + b)}
+        <div class="row-checker">
+            ${checkArray
+              .map((type) => `<div class="row-checker-dot ${type}"></div>`)
+              .reduce((a, b) => a + b)}
+        </div>
     </div>
 `;
