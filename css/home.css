@@ -1,0 +1,47 @@
+.mastermind-animation-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
+.mastermind-animation-wrapper > div {
+  margin-left: 1em;
+  height: 1em;
+  width: 1em;
+  border: 0.1em white solid;
+  border-radius: 0.3em;
+  animation: colorChange 10s;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+.mastermind-animation-wrapper > div:nth-child(2) {
+  animation-delay: -2s;
+}
+
+.mastermind-animation-wrapper > div:nth-child(3) {
+  animation-delay: -1s;
+}
+
+.mastermind-animation-wrapper > div:nth-child(4) {
+  animation-delay: -3s;
+}
+
+@keyframes colorChange {
+  53% {
+    transform: rotate(0deg);
+  }
+
+  60% {
+    transform: rotate(30deg);
+  }
+
+  74% {
+    transform: rotate(0deg);
+  }
+}
+
+.play-button {
+  margin-right: 1em;
+}

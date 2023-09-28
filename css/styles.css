@@ -1,0 +1,296 @@
+@import url("https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap");
+
+:root {
+  --bg-color-1: #13547a;
+  --bg-color-2: #80d0c7;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background-image: linear-gradient(
+    15deg,
+    var(--bg-color-1) 0%,
+    var(--bg-color-2) 100%
+  );
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inclusive Sans", sans-serif;
+  color: white;
+}
+
+a {
+  all: unset;
+  display: inline-block;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 40em;
+  max-width: 100%;
+  animation: fadeIn 1s forwards;
+  opacity: 0;
+  height: 100vh;
+  position: relative;
+}
+
+/* UI */
+
+.label {
+  margin-top: 1.3em;
+  margin-bottom: 0.5em;
+}
+
+.button,
+.button-group,
+input[type="text"],
+.game-color-input {
+  background-color: transparent;
+  border: 0.1em white solid;
+  color: white;
+  font-family: "Inclusive Sans", sans-serif;
+  border-radius: 0.5em;
+  font-size: 1em;
+}
+
+input[type="text"] {
+  padding: 0.8em;
+  text-align: center;
+}
+
+.button,
+.button-group > div {
+  padding: 0.8em 2em;
+  transition: background-color 0.2s ease-in, color 0.2s ease-in;
+  cursor: pointer;
+}
+
+.button:hover,
+.button-group > div:hover,
+.btn-group-active {
+  background-color: white;
+  color: var(--bg-color-1);
+}
+
+.card {
+  background-color: white;
+  padding: 10em;
+  border-radius: 2em;
+}
+
+.button-group {
+  display: flex;
+  overflow: hidden;
+}
+
+.button-group > div {
+  border-left: 0.1em white solid;
+}
+
+.button-group > div:first-child {
+  border-left: none;
+}
+
+/* COLOR INPUT */
+
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 3em;
+  height: 3em;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: none;
+}
+input[type="color"]::-webkit-color-swatch {
+  border-radius: 0.5em;
+  border: none;
+  padding: none;
+}
+input[type="color"]::-moz-color-swatch {
+  border-radius: 0.5em;
+  border: none;
+  padding: none;
+}
+
+#start-game-button {
+  margin-top: 1em;
+}
+
+/* GAME INPUT */
+
+.bottom-container {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 2em);
+  padding: 1em;
+  margin-top: auto;
+  max-width: 25em;
+}
+
+.color-input-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 2fr;
+  gap: 1em;
+  margin-bottom: 1em;
+  aspect-ratio: 7 / 1;
+}
+
+.color-buttons-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  justify-items: center;
+  align-items: center;
+  aspect-ratio: 4 / 1;
+  width: 100%;
+}
+
+.color-input-container > div {
+  height: 100%;
+  border-radius: 1em;
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  justify-self: stretch;
+}
+
+.game-color-input {
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.game-color-input.focused {
+  box-shadow: 0 0 2px 8px rgba(255, 255, 255, 0.392);
+}
+
+.color-button {
+  background-color: #80d0c7;
+  align-self: center;
+  justify-self: stretch;
+  border-radius: 20%;
+  aspect-ratio: 1;
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.game-color-input:hover,
+.color-button:hover {
+  filter: brightness(0.9);
+}
+
+.game-color-input:active,
+.color-button:active {
+  filter: brightness(0.6);
+  box-shadow: 0 0 0;
+}
+
+/* GAME */
+
+#game-rows {
+  width: 100%;
+  color: #555;
+  overflow-y: overlay;
+  padding: 2em 0;
+}
+
+.game-row {
+  margin: 0 1em;
+  margin-bottom: 1em;
+  background-color: white;
+  border-radius: 2em;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  gap: 0.2em;
+  padding: 0.4em;
+  height: 1px;
+  justify-content: center;
+  align-content: center;
+  height: 7em;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.row-counter {
+  background-color: #eee;
+  border-radius: 1em;
+  aspect-ratio: 1;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row-color-indicator {
+  aspect-ratio: 1;
+  margin: 10%;
+  border-radius: 1em;
+}
+
+.row-checker {
+  background-color: #eee;
+  border-radius: 2em;
+  aspect-ratio: 1;
+  display: grid;
+  grid-template: auto / 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.row-checker-dot {
+  width: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 0.15em solid #bbb;
+  box-sizing: border-box;
+}
+
+.row-checker-dot.hasColor {
+  background: #555;
+  border: none;
+}
+
+.row-checker-dot.hasPosition {
+  background: var(--bg-color-2);
+  border: none;
+}
+
+/* UTILITY */
+
+.shadow {
+  -webkit-box-shadow: 5px 5px 11px 0px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 5px 5px 11px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 5px 5px 11px 0px rgba(0, 0, 0, 0.12);
+}
+
+.rounded {
+  border-radius: 1em;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(2em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0em);
+  }
+}
