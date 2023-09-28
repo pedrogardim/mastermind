@@ -1,4 +1,8 @@
-import { gameTemplate, createGameRow } from "../templates/game.js";
+import {
+  gameTemplate,
+  createGameRow,
+  endGameMessage,
+} from "../templates/game.js";
 import confetti from "https://cdn.skypack.dev/canvas-confetti";
 
 export class GameController {
@@ -97,10 +101,15 @@ export class GameController {
     this.update();
   }
   onWin() {
-    console.log("You Won!");
+    this.app.innerHTML = endGameMessage("You win!");
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => confetti(), i * 200);
+    }
   }
   onLose() {
-    console.log("You Lose!");
+    setTimeout(() => {
+      this.app.innerHTML = endGameMessage("You lose!");
+    }, 1000);
   }
   update() {
     const disabled = this.selectedColors.length < this.numOfColors;

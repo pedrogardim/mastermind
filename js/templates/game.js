@@ -35,3 +35,9 @@ export const createGameRow = (index, colors, checkArray) => `
         </div>
     </div>
 `;
+
+export const endGameMessage = (message) => `
+    <h1 class="title">MasterMind</h1>
+    <h1 class="end-game-message">${message}</h1>
+    <a class="button" href="./game.html">Start again</a>
+`;
