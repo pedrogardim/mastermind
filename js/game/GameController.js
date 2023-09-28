@@ -6,6 +6,8 @@ export class GameController {
   selectedColors = [];
   selectedColorInput = 0;
   round = 1;
+  errorMessage = "";
+  numOfColors = 4;
   constructor() {
     // this.init();
   }
@@ -24,7 +26,7 @@ export class GameController {
     this.gameRows = document.getElementById("game-rows");
     this.colorButtons = document.querySelectorAll(".color-button");
     this.colorInputs = document.querySelectorAll(".game-color-input");
-    this.startButton = document.getElementById("check-button");
+    this.checkButton = document.getElementById("check-button");
 
     this.colorButtons.forEach(
       (el, i) => (el.style.backgroundColor = this.colors[i])
@@ -48,9 +50,13 @@ export class GameController {
         this.update();
       });
     });
-    this.startButton.addEventListener("click", this.onCheck.bind(this));
+    this.checkButton.addEventListener("click", this.onCheck.bind(this));
   }
   onCheck() {
+    if (this.selectedColors.length < this.numOfColors) {
+      this.errorMessage = "You have some empty colors";
+      return;
+    }
     let correctPos = [];
     let correctColors = [];
     this.selectedColors.forEach((color, index) => {
@@ -72,6 +78,9 @@ export class GameController {
     this.update();
   }
   update() {
+    const disabled = this.selectedColors.length < this.numOfColors;
+    this.checkButton.classList[disabled ? "add" : "remove"]("disabled");
+
     this.colorInputs.forEach((el, i) => {
       el.classList[this.selectedColorInput === i ? "add" : "remove"]("focused");
       el.style.backgroundColor = this.selectedColors[i] || "";

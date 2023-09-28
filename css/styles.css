@@ -60,6 +60,13 @@ input[type="text"],
   font-size: 1em;
 }
 
+.button.disabled {
+  border-color: #aaa;
+  color: #aaa !important;
+  background-color: transparent !important;
+  cursor: auto !important;
+}
+
 input[type="text"] {
   padding: 0.8em;
   text-align: center;
