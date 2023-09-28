@@ -27,6 +27,7 @@ export class GameController {
     this.colorButtons = document.querySelectorAll(".color-button");
     this.colorInputs = document.querySelectorAll(".game-color-input");
     this.checkButton = document.getElementById("check-button");
+    this.errorMessageSpan = document.getElementById("error-message");
 
     this.colorButtons.forEach(
       (el, i) => (el.style.backgroundColor = this.colors[i])
@@ -55,7 +56,11 @@ export class GameController {
   onCheck() {
     if (this.selectedColors.length < this.numOfColors) {
       this.errorMessage = "You have some empty colors";
+      this.update();
       return;
+    } else {
+      this.errorMessage = "";
+      this.update();
     }
     let correctPos = [];
     let correctColors = [];
@@ -80,6 +85,8 @@ export class GameController {
   update() {
     const disabled = this.selectedColors.length < this.numOfColors;
     this.checkButton.classList[disabled ? "add" : "remove"]("disabled");
+
+    this.errorMessageSpan.innerText = this.errorMessage;
 
     this.colorInputs.forEach((el, i) => {
       el.classList[this.selectedColorInput === i ? "add" : "remove"]("focused");

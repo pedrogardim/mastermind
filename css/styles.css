@@ -3,6 +3,7 @@
 :root {
   --bg-color-1: #13547a;
   --bg-color-2: #80d0c7;
+  --danger: #ff6176;
 }
 
 body {
@@ -136,6 +137,7 @@ input[type="color"]::-moz-color-swatch {
 /* GAME INPUT */
 
 .bottom-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: calc(100% - 2em);
@@ -204,6 +206,14 @@ input[type="color"]::-moz-color-swatch {
 .color-button:active {
   filter: brightness(0.6);
   box-shadow: 0 0 0;
+}
+
+#error-message {
+  color: var(--danger);
+  width: 100%;
+  text-align: center;
+  top: -2em;
+  position: absolute;
 }
 
 /* GAME */
