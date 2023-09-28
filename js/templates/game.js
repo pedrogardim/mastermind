@@ -10,9 +10,9 @@ export const gameTemplate = `
         <div class="button">Check</div>
     </div>
     <div class="color-buttons-container">
-        <div class="color-button"></div>
-        <div class="color-button"></div>
-        <div class="color-button"></div>
-        <div class="color-button"></div>
+        <div class="color-button shadow"></div>
+        <div class="color-button shadow"></div>
+        <div class="color-button shadow"></div>
+        <div class="color-button shadow"></div>
     </div>
 `;

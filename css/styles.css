@@ -50,7 +50,8 @@ a {
 
 .button,
 .button-group,
-input[type="text"] {
+input[type="text"],
+.game-color-input {
   background-color: transparent;
   border: 0.1em white solid;
   color: white;
@@ -137,15 +138,15 @@ input[type="color"]::-moz-color-swatch {
 .color-input-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr) 2fr;
-  gap: 0.5em;
+  gap: 1em;
   margin-bottom: 1em;
-  aspect-ratio: 6 / 1;
+  aspect-ratio: 7 / 1;
 }
 
 .color-buttons-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.5em;
+  gap: 1em;
   justify-items: center;
   align-items: center;
   aspect-ratio: 4 / 1;
@@ -165,7 +166,7 @@ input[type="color"]::-moz-color-swatch {
 }
 
 .game-color-input {
-  background-color: white;
+  aspect-ratio: 1;
 }
 
 .color-button {
@@ -173,14 +174,15 @@ input[type="color"]::-moz-color-swatch {
   align-self: stretch;
   justify-self: stretch;
   border-radius: 20%;
+  aspect-ratio: 1;
 }
 
 /* UTILITY */
 
 .shadow {
-  -webkit-box-shadow: 10px 10px 21px 0px rgba(0, 0, 0, 0.33);
-  -moz-box-shadow: 10px 10px 21px 0px rgba(0, 0, 0, 0.33);
-  box-shadow: 10px 10px 21px 0px rgba(0, 0, 0, 0.33);
+  -webkit-box-shadow: 5px 5px 11px 0px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 5px 5px 11px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 5px 5px 11px 0px rgba(0, 0, 0, 0.12);
 }
 
 .rounded {

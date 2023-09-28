@@ -15,6 +15,10 @@ export class GameController {
     this.difficulty = difficulty;
     this.colors = colors;
 
+    document
+      .querySelectorAll(".color-button")
+      .forEach((el, i) => (el.style.backgroundColor = this.colors[i]));
+
     this.initializeEvents();
     this.update();
   }
