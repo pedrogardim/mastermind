@@ -19,6 +19,8 @@ export class GameController {
     // this.init();
   }
   init({ userName, difficulty, colors }) {
+    this.gameEnded = false;
+    this.round = 1;
     this.app = document.getElementById("app");
     this.app.innerHTML = gameTemplate;
 
@@ -80,6 +82,8 @@ export class GameController {
       e ? "hasPosition" : correctColors[i] ? "hasColor" : ""
     );
 
+    if (this.gameEnded) return;
+
     const row = document.createElement("div");
     row.innerHTML = createGameRow(this.round, this.selectedColors, checkArray);
     this.gameRows.append(row);
@@ -87,11 +91,13 @@ export class GameController {
 
     if (correctPos.every((e) => e)) {
       this.onWin();
+      this.gameEnded = true;
       return;
     }
 
     if (this.round >= this.maxRounds) {
       this.onLose();
+      this.gameEnded = true;
       return;
     }
 
