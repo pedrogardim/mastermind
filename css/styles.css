@@ -162,54 +162,38 @@ input[type="color"]::-moz-color-swatch {
 }
 
 .color-input-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr) 2fr;
-  gap: 1em;
-  margin-bottom: 1em;
-  aspect-ratio: 7 / 1;
+  display: flex;
 }
 
 .color-buttons-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1em;
+  display: flex;
   justify-items: center;
   align-items: center;
   aspect-ratio: 4 / 1;
   width: 100%;
 }
 
-.color-input-container > div {
-  height: 100%;
+#check-button {
+  margin: 0.2em;
   border-radius: 1em;
-  box-sizing: border-box;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  align-self: center;
-  justify-self: stretch;
 }
 
-.game-color-input {
-  aspect-ratio: 1;
+.game-color-input,
+.color-button {
   box-sizing: border-box;
-  transition: 0.2s;
   cursor: pointer;
+  flex: 1;
+  aspect-ratio: 1;
+  transition: 0.1s;
+  border-radius: 20%;
+  margin: 0.2em;
 }
 
 .game-color-input.focused {
   box-shadow: 0 0 2px 8px rgba(255, 255, 255, 0.392);
-}
-
-.color-button {
-  background-color: #80d0c7;
-  align-self: center;
-  justify-self: stretch;
-  border-radius: 20%;
-  aspect-ratio: 1;
-  transition: 0.1s;
-  cursor: pointer;
 }
 
 .game-color-input:hover,
