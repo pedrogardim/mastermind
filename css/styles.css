@@ -169,6 +169,7 @@ input[type="color"]::-moz-color-swatch {
   aspect-ratio: 1;
   display: border-box;
   transition: 0.2s;
+  cursor: pointer;
 }
 
 .game-color-input.focused {
@@ -181,6 +182,19 @@ input[type="color"]::-moz-color-swatch {
   justify-self: stretch;
   border-radius: 20%;
   aspect-ratio: 1;
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.game-color-input:hover,
+.color-button:hover {
+  filter: brightness(0.9);
+}
+
+.game-color-input:active,
+.color-button:active {
+  filter: brightness(0.6);
+  box-shadow: 0 0 0;
 }
 
 /* UTILITY */

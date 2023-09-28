@@ -3,7 +3,8 @@ import { gameTemplate } from "../templates/game.js";
 export class GameController {
   userName;
   difficulty;
-  colors;
+  targetColors;
+  selectedColors = [];
   selectedColorInput = 0;
   constructor() {
     // this.init();
@@ -27,7 +28,14 @@ export class GameController {
     this.update();
   }
   initializeEvents() {
-    this.colorButtons.forEach((el) => {});
+    this.colorButtons.forEach((el, i) => {
+      el.addEventListener("click", () => {
+        this.selectedColors[this.selectedColorInput] = this.colors[i];
+        this.selectedColorInput++;
+        this.selectedColorInput %= 4;
+        this.update();
+      });
+    });
     this.colorInputs.forEach((el, i) => {
       el.addEventListener("click", () => {
         this.selectedColorInput = i;
@@ -38,6 +46,7 @@ export class GameController {
   update() {
     this.colorInputs.forEach((el, i) => {
       el.classList[this.selectedColorInput === i ? "add" : "remove"]("focused");
+      el.style.backgroundColor = this.selectedColors[i];
     });
   }
 }
