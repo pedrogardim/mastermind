@@ -126,13 +126,15 @@ input[type="color"]::-moz-color-swatch {
   margin-top: 1em;
 }
 
+/* GAME INPUT */
+
 .bottom-container {
   display: flex;
   flex-direction: column;
   width: calc(100% - 2em);
-  padding: 2em;
-  margin: auto 2em 2em 2em;
-  max-width: 500px;
+  padding: 1em;
+  margin-top: auto;
+  max-width: 25em;
 }
 
 .color-input-container {
@@ -161,7 +163,7 @@ input[type="color"]::-moz-color-swatch {
   display: flex;
   justify-content: center;
   align-items: center;
-  align-self: stretch;
+  align-self: center;
   justify-self: stretch;
 }
 
@@ -178,7 +180,7 @@ input[type="color"]::-moz-color-swatch {
 
 .color-button {
   background-color: #80d0c7;
-  align-self: stretch;
+  align-self: center;
   justify-self: stretch;
   border-radius: 20%;
   aspect-ratio: 1;

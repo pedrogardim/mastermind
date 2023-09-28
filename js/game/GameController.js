@@ -17,8 +17,13 @@ export class GameController {
     this.difficulty = difficulty;
     this.colors = colors;
 
+    this.targetColors = colors.map(
+      () => colors[Math.floor(Math.random() * colors.length)]
+    );
+
     this.colorButtons = document.querySelectorAll(".color-button");
     this.colorInputs = document.querySelectorAll(".game-color-input");
+    this.startButton = document.getElementById("check-button");
 
     this.colorButtons.forEach(
       (el, i) => (el.style.backgroundColor = this.colors[i])
@@ -41,6 +46,15 @@ export class GameController {
         this.selectedColorInput = i;
         this.update();
       });
+    });
+    this.startButton.addEventListener("click", this.onCheck.bind(this));
+  }
+  onCheck() {
+    let correctPos = [];
+    let correctColors = [];
+    this.selectedColors.forEach((color, index) => {
+      correctPos[index] = color === this.targetColors[index];
+      correctColors[index] = this.targetColors.includes(color);
     });
   }
   update() {

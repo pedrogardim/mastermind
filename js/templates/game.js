@@ -7,7 +7,7 @@ export const gameTemplate = `
         <div class="game-color-input"></div>
         <div class="game-color-input"></div>
         <div class="game-color-input"></div>
-        <div class="button">Check</div>
+        <div class="button" id="check-button">Check</div>
     </div>
     <div class="color-buttons-container">
         <div class="color-button shadow"></div>
