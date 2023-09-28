@@ -1,3 +1,5 @@
+import { getTimeDifferenceString } from "../utils/time.js";
+
 export const gameTemplate = `
     <h1 class="title">MasterMind</h1>
     <div id="game-rows"></div>
@@ -36,8 +38,9 @@ export const createGameRow = (index, colors, checkArray) => `
     </div>
 `;
 
-export const endGameMessage = (message) => `
+export const endGameMessage = (message, startDate) => `
     <h1 class="title">MasterMind</h1>
     <h1 class="end-game-message">${message}</h1>
+    <h3>Took ${getTimeDifferenceString(startDate)}s</h3>
     <a class="button" href="./game.html">Start again</a>
 `;

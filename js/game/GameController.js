@@ -15,12 +15,14 @@ export class GameController {
   errorMessage = "";
   numOfColors = 4;
   maxRounds = 10;
+  startTime;
   constructor() {
     // this.init();
   }
   init({ userName, difficulty, colors }) {
     this.gameEnded = false;
     this.round = 1;
+    this.startTime = new Date();
     this.app = document.getElementById("app");
     this.app.innerHTML = gameTemplate;
 
@@ -107,7 +109,7 @@ export class GameController {
     this.update();
   }
   onWin() {
-    this.app.innerHTML = endGameMessage("You win!");
+    this.app.innerHTML = endGameMessage("You win!", this.startTime);
     for (let i = 0; i < 8; i++) {
       setTimeout(() => confetti(), i * 200);
     }
@@ -117,7 +119,7 @@ export class GameController {
     this.gameRows.style.transform = "translateY(2em) scale(0.9)";
 
     setTimeout(() => {
-      this.app.innerHTML = endGameMessage("You lose!");
+      this.app.innerHTML = endGameMessage("You lose!", this.startTime);
     }, 1000);
   }
   update() {
