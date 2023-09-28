@@ -5,7 +5,12 @@ const difficulties = ["Easy", "Medium", "Hard"];
 
 export const gameTemplate = (numOfColors) => `
     <h1 class="title">MasterMind</h1>
-    <div id="game-rows"></div>
+    <div id="game-rows">
+      <div class="game-tutorial-container">
+        <p>To start the game simply fill the tiles with colors and press "Check" </p>
+        <img src="../assets/icons/arrow-down.svg" />
+      </div>
+    </div>
     <div class="bottom-container">
         <span id="error-message"></span>
         <div class="color-input-container">

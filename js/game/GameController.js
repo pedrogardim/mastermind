@@ -28,7 +28,6 @@ export class GameController {
 
     this.gameEnded = false;
     this.round = 1;
-    this.startTime = new Date();
     this.userName = userName;
     this.difficulty = difficulty;
     this.numOfColors = difficultyInfo.colors;
@@ -76,6 +75,10 @@ export class GameController {
     this.checkButton.addEventListener("click", this.onCheck.bind(this));
   }
   onCheck() {
+    if (this.round === 1) {
+      this.startTime = new Date();
+      this.gameRows.innerHTML = "";
+    }
     if (this.selectedColors.length < this.numOfColors) {
       this.errorMessage = "You have some empty colors";
       this.update();
