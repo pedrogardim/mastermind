@@ -62,7 +62,7 @@ export class GameController {
       el.addEventListener("click", () => {
         this.selectedColors[this.selectedColorInput] = this.colors[i];
         this.selectedColorInput++;
-        this.selectedColorInput %= this.maxRounds;
+        this.selectedColorInput %= this.numOfColors;
         this.update();
       });
     });
