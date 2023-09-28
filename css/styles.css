@@ -167,6 +167,12 @@ input[type="color"]::-moz-color-swatch {
 
 .game-color-input {
   aspect-ratio: 1;
+  display: border-box;
+  transition: 0.2s;
+}
+
+.game-color-input.focused {
+  box-shadow: 0 0 2px 8px rgba(255, 255, 255, 0.392);
 }
 
 .color-button {
