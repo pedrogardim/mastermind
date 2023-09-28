@@ -1,5 +1,6 @@
 import { menuTemplate } from "../templates/menu.js";
 import { gameController } from "../main.js";
+import { difficultyOptions } from "../utils/gameUtils.js";
 
 export class GameMenuController {
   difficulty = 0;
@@ -17,6 +18,8 @@ export class GameMenuController {
     );
     this.colorInputs = document.querySelectorAll("#color-inputs-wrapper > *");
     this.startButton = document.getElementById("start-game-button");
+    this.colorNumIndicator = document.getElementById("color-num-indicator");
+    this.checkNumIndicator = document.getElementById("check-num-indicator");
 
     this.colorInputs.forEach((input, i) => (input.value = this.colors[i]));
 
@@ -53,5 +56,9 @@ export class GameMenuController {
         "btn-group-active"
       );
     });
+    this.colorNumIndicator.innerHTML =
+      Object.values(difficultyOptions)[this.difficulty].colors;
+    this.checkNumIndicator.innerHTML =
+      Object.values(difficultyOptions)[this.difficulty].checks;
   }
 }
