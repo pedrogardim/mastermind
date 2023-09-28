@@ -1,4 +1,12 @@
-import { gameTemplate, createGameRow } from "../templates/game.js";
+import {
+  gameTemplate,
+  createGameRow,
+  endGameMessage,
+} from "../templates/game.js";
+
+import confetti from "https://cdn.skypack.dev/canvas-confetti";
+
+import { pushToStorage } from "../utils/localStorage.js";
 export class GameController {
   userName;
   difficulty;
@@ -6,10 +14,17 @@ export class GameController {
   selectedColors = [];
   selectedColorInput = 0;
   round = 1;
+  errorMessage = "";
+  numOfColors = 4;
+  maxRounds = 10;
+  startTime;
   constructor() {
     // this.init();
   }
   init({ userName, difficulty, colors }) {
+    this.gameEnded = false;
+    this.round = 1;
+    this.startTime = new Date();
     this.app = document.getElementById("app");
     this.app.innerHTML = gameTemplate;
 
@@ -24,7 +39,8 @@ export class GameController {
     this.gameRows = document.getElementById("game-rows");
     this.colorButtons = document.querySelectorAll(".color-button");
     this.colorInputs = document.querySelectorAll(".game-color-input");
-    this.startButton = document.getElementById("check-button");
+    this.checkButton = document.getElementById("check-button");
+    this.errorMessageSpan = document.getElementById("error-message");
 
     this.colorButtons.forEach(
       (el, i) => (el.style.backgroundColor = this.colors[i])
@@ -48,9 +64,17 @@ export class GameController {
         this.update();
       });
     });
-    this.startButton.addEventListener("click", this.onCheck.bind(this));
+    this.checkButton.addEventListener("click", this.onCheck.bind(this));
   }
   onCheck() {
+    if (this.selectedColors.length < this.numOfColors) {
+      this.errorMessage = "You have some empty colors";
+      this.update();
+      return;
+    } else {
+      this.errorMessage = "";
+      this.update();
+    }
     let correctPos = [];
     let correctColors = [];
     this.selectedColors.forEach((color, index) => {
@@ -62,16 +86,56 @@ export class GameController {
       e ? "hasPosition" : correctColors[i] ? "hasColor" : ""
     );
 
+    if (this.gameEnded) return;
+
     const row = document.createElement("div");
     row.innerHTML = createGameRow(this.round, this.selectedColors, checkArray);
     this.gameRows.append(row);
-    this.selectedColors = [];
-    this.round++;
     this.gameRows.scrollTo({ top: 9999 });
+
+    if (correctPos.every((e) => e)) {
+      this.onWin();
+      this.gameEnded = true;
+      return;
+    }
+
+    if (this.round >= this.maxRounds) {
+      this.onLose();
+      this.gameEnded = true;
+      return;
+    }
+
+    this.round++;
+    // this.selectedColors = [];
     this.selectedColorInput = 0;
     this.update();
   }
+  onWin() {
+    pushToStorage({
+      userName: this.userName,
+      rounds: this.round,
+      time: new Date() - this.startTime,
+      difficulty: this.difficulty,
+    });
+    this.app.innerHTML = endGameMessage("You win!", this.startTime);
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => confetti(), i * 200);
+    }
+  }
+  onLose() {
+    this.gameRows.style.opacity = 0;
+    this.gameRows.style.transform = "translateY(2em) scale(0.9)";
+
+    setTimeout(() => {
+      this.app.innerHTML = endGameMessage("You lose!", this.startTime);
+    }, 1000);
+  }
   update() {
+    const disabled = this.selectedColors.length < this.numOfColors;
+    this.checkButton.classList[disabled ? "add" : "remove"]("disabled");
+
+    this.errorMessageSpan.innerText = this.errorMessage;
+
     this.colorInputs.forEach((el, i) => {
       el.classList[this.selectedColorInput === i ? "add" : "remove"]("focused");
       el.style.backgroundColor = this.selectedColors[i] || "";

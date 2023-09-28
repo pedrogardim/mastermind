@@ -3,6 +3,7 @@
 :root {
   --bg-color-1: #13547a;
   --bg-color-2: #80d0c7;
+  --danger: #ff6176;
 }
 
 body {
@@ -58,6 +59,13 @@ input[type="text"],
   font-family: "Inclusive Sans", sans-serif;
   border-radius: 0.5em;
   font-size: 1em;
+}
+
+.button.disabled {
+  border-color: #aaa;
+  color: #aaa !important;
+  background-color: transparent !important;
+  cursor: auto !important;
 }
 
 input[type="text"] {
@@ -129,6 +137,7 @@ input[type="color"]::-moz-color-swatch {
 /* GAME INPUT */
 
 .bottom-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: calc(100% - 2em);
@@ -199,6 +208,14 @@ input[type="color"]::-moz-color-swatch {
   box-shadow: 0 0 0;
 }
 
+#error-message {
+  color: var(--danger);
+  width: 100%;
+  text-align: center;
+  top: -2em;
+  position: absolute;
+}
+
 /* GAME */
 
 #game-rows {
@@ -206,6 +223,14 @@ input[type="color"]::-moz-color-swatch {
   color: #555;
   overflow-y: overlay;
   padding: 2em 0;
+  transition: 1s transform linear, 1s opacity linear;
+  z-index: 1;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#game-rows::-webkit-scrollbar {
+  display: none;
 }
 
 .game-row {
@@ -268,6 +293,25 @@ input[type="color"]::-moz-color-swatch {
 .row-checker-dot.hasPosition {
   background: var(--bg-color-2);
   border: none;
+}
+
+.end-game-message {
+  font-size: 3em;
+}
+
+/* GAME RANKING */
+
+.ranking-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr 3fr 2fr 2fr;
+  width: 100%;
+  margin: 1em;
+}
+
+.ranking-container > div {
+  border-bottom: 0.02em solid white;
+  padding: 0.3em;
+  /* text-align: center; */
 }
 
 /* UTILITY */
