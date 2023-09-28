@@ -16,10 +16,10 @@ export const menuTemplate = `
     </div>
     <span class="label">Colors</span>
     <div id="color-inputs-wrapper">
-        <input type="color"></input>
-        <input type="color"></input>
-        <input type="color"></input>
-        <input type="color"></input>
+        <input type="color">
+        <input type="color">
+        <input type="color">
+        <input type="color">
     </div>
     <button class="button" id="start-game-button">Start game</button>
 `;

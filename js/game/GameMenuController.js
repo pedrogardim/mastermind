@@ -4,7 +4,7 @@ import { difficultyOptions } from "../utils/gameUtils.js";
 
 export class GameMenuController {
   difficulty = 0;
-  colors = ["#F76C5E", "#F68E5F", "#F5DD90", "#16DB93"];
+  colors = ["#F76C5E", "#F68E5F", "#F5DD90", "#16DB93", "#A390E4", "#30BCED"];
   constructor() {
     this.init();
   }
@@ -17,6 +17,7 @@ export class GameMenuController {
       "#difficulty-btn-group > *"
     );
     this.colorInputs = document.querySelectorAll("#color-inputs-wrapper > *");
+    this.colorInputsWrapper = document.getElementById("color-inputs-wrapper");
     this.startButton = document.getElementById("start-game-button");
     this.colorNumIndicator = document.getElementById("color-num-indicator");
     this.checkNumIndicator = document.getElementById("check-num-indicator");
@@ -56,9 +57,25 @@ export class GameMenuController {
         "btn-group-active"
       );
     });
-    this.colorNumIndicator.innerHTML =
-      Object.values(difficultyOptions)[this.difficulty].colors;
-    this.checkNumIndicator.innerHTML =
-      Object.values(difficultyOptions)[this.difficulty].checks;
+
+    this.difficultyButtons.forEach((button, i) => {
+      button.classList[this.difficulty === i ? "add" : "remove"](
+        "btn-group-active"
+      );
+    });
+
+    const { colors, checks } =
+      Object.values(difficultyOptions)[this.difficulty];
+
+    this.colorInputsWrapper.innerHTML = Array(colors)
+      .fill('<input type="color">')
+      .join("");
+
+    this.colorInputs = document.querySelectorAll("#color-inputs-wrapper > *");
+
+    this.colorInputs.forEach((input, i) => (input.value = this.colors[i]));
+
+    this.colorNumIndicator.innerHTML = colors;
+    this.checkNumIndicator.innerHTML = checks;
   }
 }
