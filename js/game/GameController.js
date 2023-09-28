@@ -3,8 +3,10 @@ import {
   createGameRow,
   endGameMessage,
 } from "../templates/game.js";
+
 import confetti from "https://cdn.skypack.dev/canvas-confetti";
 
+import { pushToStorage } from "../utils/localStorage.js";
 export class GameController {
   userName;
   difficulty;
@@ -109,6 +111,12 @@ export class GameController {
     this.update();
   }
   onWin() {
+    pushToStorage({
+      userName: this.userName,
+      rounds: this.round,
+      time: new Date() - this.startTime,
+      difficulty: this.difficulty,
+    });
     this.app.innerHTML = endGameMessage("You win!", this.startTime);
     for (let i = 0; i < 8; i++) {
       setTimeout(() => confetti(), i * 200);
