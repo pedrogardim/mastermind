@@ -107,6 +107,9 @@ export class GameController {
     }
   }
   onLose() {
+    this.gameRows.style.opacity = 0;
+    this.gameRows.style.transform = "translateY(2em) scale(0.9)";
+
     setTimeout(() => {
       this.app.innerHTML = endGameMessage("You lose!");
     }, 1000);

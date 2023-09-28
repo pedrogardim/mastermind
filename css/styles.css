@@ -223,6 +223,14 @@ input[type="color"]::-moz-color-swatch {
   color: #555;
   overflow-y: overlay;
   padding: 2em 0;
+  transition: 1s transform linear, 1s opacity linear;
+  z-index: 1;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#game-rows::-webkit-scrollbar {
+  display: none;
 }
 
 .game-row {
