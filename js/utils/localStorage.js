@@ -9,6 +9,8 @@ export const pushToStorage = (newEntry) => {
 };
 
 export const readStorage = () =>
-  JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "[]");
+  JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "[]")
+    .sort((a, b) => a.time - b.time)
+    .slice(0, 10);
 
 // localStorage.removeItem(LOCAL_STORAGE_KEY);

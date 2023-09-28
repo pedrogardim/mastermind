@@ -299,6 +299,21 @@ input[type="color"]::-moz-color-swatch {
   font-size: 3em;
 }
 
+/* GAME RANKING */
+
+.ranking-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr 3fr 2fr 2fr;
+  width: 100%;
+  margin: 1em;
+}
+
+.ranking-container > div {
+  border-bottom: 0.02em solid white;
+  padding: 0.3em;
+  /* text-align: center; */
+}
+
 /* UTILITY */
 
 .shadow {
