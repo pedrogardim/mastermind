@@ -1,4 +1,6 @@
 import { gameTemplate, createGameRow } from "../templates/game.js";
+import confetti from "https://cdn.skypack.dev/canvas-confetti";
+
 export class GameController {
   userName;
   difficulty;
@@ -8,6 +10,7 @@ export class GameController {
   round = 1;
   errorMessage = "";
   numOfColors = 4;
+  maxRounds = 10;
   constructor() {
     // this.init();
   }
@@ -76,11 +79,28 @@ export class GameController {
     const row = document.createElement("div");
     row.innerHTML = createGameRow(this.round, this.selectedColors, checkArray);
     this.gameRows.append(row);
-    this.selectedColors = [];
-    this.round++;
     this.gameRows.scrollTo({ top: 9999 });
+
+    if (correctPos.every((e) => e)) {
+      this.onWin();
+      return;
+    }
+
+    if (this.round >= this.maxRounds) {
+      this.onLose();
+      return;
+    }
+
+    this.round++;
+    // this.selectedColors = [];
     this.selectedColorInput = 0;
     this.update();
+  }
+  onWin() {
+    console.log("You Won!");
+  }
+  onLose() {
+    console.log("You Lose!");
   }
   update() {
     const disabled = this.selectedColors.length < this.numOfColors;
