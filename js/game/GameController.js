@@ -75,10 +75,6 @@ export class GameController {
     this.checkButton.addEventListener("click", this.onCheck.bind(this));
   }
   onCheck() {
-    if (this.round === 1) {
-      this.startTime = new Date();
-      this.gameRows.innerHTML = "";
-    }
     if (this.selectedColors.length < this.numOfColors) {
       this.errorMessage = "You have some empty colors";
       this.update();
@@ -87,6 +83,12 @@ export class GameController {
       this.errorMessage = "";
       this.update();
     }
+
+    if (this.round === 1) {
+      this.startTime = new Date();
+      this.gameRows.innerHTML = "";
+    }
+
     let correctPos = [];
     let correctColors = [];
     this.selectedColors.forEach((color, index) => {
