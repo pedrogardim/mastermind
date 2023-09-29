@@ -7,6 +7,8 @@ import {
 import confetti from "https://cdn.skypack.dev/canvas-confetti";
 
 import { pushToStorage } from "../utils/localStorage.js";
+import { difficultyOptions } from "../utils/gameUtils.js";
+
 export class GameController {
   userName;
   difficulty;
@@ -22,39 +24,45 @@ export class GameController {
     // this.init();
   }
   init({ userName, difficulty, colors }) {
+    const difficultyInfo = Object.values(difficultyOptions)[difficulty];
+
     this.gameEnded = false;
     this.round = 1;
-    this.startTime = new Date();
-    this.app = document.getElementById("app");
-    this.app.innerHTML = gameTemplate;
-
     this.userName = userName;
     this.difficulty = difficulty;
+    this.numOfColors = difficultyInfo.colors;
+    this.maxRounds = difficultyInfo.checks;
     this.colors = colors;
+
+    this.app = document.getElementById("app");
+    this.app.innerHTML = gameTemplate(difficultyInfo.colors);
+
+    this.initSelectors();
 
     this.targetColors = colors.map(
       () => colors[Math.floor(Math.random() * colors.length)]
     );
 
+    this.colorButtons.forEach(
+      (el, i) => (el.style.backgroundColor = this.colors[i])
+    );
+
+    this.initEvents();
+    this.update();
+  }
+  initSelectors() {
     this.gameRows = document.getElementById("game-rows");
     this.colorButtons = document.querySelectorAll(".color-button");
     this.colorInputs = document.querySelectorAll(".game-color-input");
     this.checkButton = document.getElementById("check-button");
     this.errorMessageSpan = document.getElementById("error-message");
-
-    this.colorButtons.forEach(
-      (el, i) => (el.style.backgroundColor = this.colors[i])
-    );
-
-    this.initializeEvents();
-    this.update();
   }
-  initializeEvents() {
+  initEvents() {
     this.colorButtons.forEach((el, i) => {
       el.addEventListener("click", () => {
         this.selectedColors[this.selectedColorInput] = this.colors[i];
         this.selectedColorInput++;
-        this.selectedColorInput %= 4;
+        this.selectedColorInput %= this.numOfColors;
         this.update();
       });
     });
@@ -67,14 +75,17 @@ export class GameController {
     this.checkButton.addEventListener("click", this.onCheck.bind(this));
   }
   onCheck() {
-    if (this.selectedColors.length < this.numOfColors) {
-      this.errorMessage = "You have some empty colors";
-      this.update();
-      return;
-    } else {
-      this.errorMessage = "";
-      this.update();
+    let hasError = this.selectedColors.length < this.numOfColors;
+    this.errorMessage = hasError ? "You have some empty colors" : "";
+    this.update();
+
+    if (hasError) return;
+
+    if (this.round === 1) {
+      this.startTime = new Date();
+      this.gameRows.innerHTML = "";
     }
+
     let correctPos = [];
     let correctColors = [];
     this.selectedColors.forEach((color, index) => {
