@@ -48,7 +48,10 @@ export class GameMenuController {
     gameController.init({
       userName,
       difficulty: this.difficulty,
-      colors: this.colors,
+      colors: this.colors.slice(
+        0,
+        Object.values(difficultyOptions)[this.difficulty].colors
+      ),
     });
   }
   update() {

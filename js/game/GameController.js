@@ -32,7 +32,7 @@ export class GameController {
     this.difficulty = difficulty;
     this.numOfColors = difficultyInfo.colors;
     this.maxRounds = difficultyInfo.checks;
-    this.colors = colors.slice(0, difficultyInfo.colors);
+    this.colors = colors;
 
     this.app = document.getElementById("app");
     this.app.innerHTML = gameTemplate(difficultyInfo.colors);
