@@ -75,14 +75,11 @@ export class GameController {
     this.checkButton.addEventListener("click", this.onCheck.bind(this));
   }
   onCheck() {
-    if (this.selectedColors.length < this.numOfColors) {
-      this.errorMessage = "You have some empty colors";
-      this.update();
-      return;
-    } else {
-      this.errorMessage = "";
-      this.update();
-    }
+    let hasError = this.selectedColors.length < this.numOfColors;
+    this.errorMessage = hasError ? "You have some empty colors" : "";
+    this.update();
+
+    if (hasError) return;
 
     if (this.round === 1) {
       this.startTime = new Date();
