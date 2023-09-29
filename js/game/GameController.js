@@ -75,7 +75,7 @@ export class GameController {
     this.checkButton.addEventListener("click", this.onCheck.bind(this));
   }
   onCheck() {
-    let hasError = this.selectedColors.length < this.numOfColors;
+    const hasError = this.selectedColors.length < this.numOfColors;
     this.errorMessage = hasError ? "You have some empty colors" : "";
     this.update();
 
@@ -86,16 +86,18 @@ export class GameController {
       this.gameRows.innerHTML = "";
     }
 
-    let correctPos = [];
-    let correctColors = [];
+    const correctPos = [];
+    const correctColors = [];
     this.selectedColors.forEach((color, index) => {
       correctPos[index] = color === this.targetColors[index];
       correctColors[index] = this.targetColors.includes(color);
     });
 
-    let checkArray = correctPos.map((e, i) =>
-      e ? "hasPosition" : correctColors[i] ? "hasColor" : ""
-    );
+    const sortArray = ["hasPosition", "hasColor", ""];
+
+    const checkArray = correctPos
+      .map((e, i) => (e ? "hasPosition" : correctColors[i] ? "hasColor" : ""))
+      .sort((a, b) => sortArray.indexOf(a) - sortArray.indexOf(b));
 
     if (this.gameEnded) return;
 

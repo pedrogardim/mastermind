@@ -5,7 +5,7 @@ const difficulties = ["Easy", "Medium", "Hard"];
 
 export const gameTemplate = (numOfColors) => `
     <h1 class="title">MasterMind</h1>
-    <div id="game-rows">
+    <div id="game-rows" class="no-scrollbar">
       <div class="game-tutorial-container">
         <p>To start the game simply fill the tiles with colors and press "Check" </p>
         <img src="../assets/icons/arrow-down.svg" />
@@ -50,7 +50,9 @@ export const endGameMessage = (message, startDate) => `
     <h1 class="title">MasterMind</h1>
     <h1 class="end-game-message">${message}</h1>
     <h3>Took ${getTimeDifferenceString(startDate)}s</h3>
-    <div class="ranking-container">
+    ${
+      readStorage().length > 0
+        ? `<div class="ranking-container">
         <div></div>
         <div>User Name</div>
         <div>Difficulty</div>
@@ -68,6 +70,8 @@ export const endGameMessage = (message, startDate) => `
             `
           )
           .join("")}
-    </div>
+    </div>`
+        : ""
+    }
     <a class="button" href="./game.html">Start again</a>
 `;
