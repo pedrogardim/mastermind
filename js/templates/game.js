@@ -38,7 +38,7 @@ export const createGameRow = (index, colors, checkArray) => `
           )
           .join("")}
         </div>
-        <div class="row-checker">
+        <div class="row-checker row-checker-grid-${checkArray.length}">
             ${checkArray
               .map((type) => `<div class="row-checker-dot ${type}"></div>`)
               .join("")}

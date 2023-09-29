@@ -299,14 +299,26 @@ input[type="color"]::-moz-color-swatch {
   background-color: #eee;
   border-radius: 2em;
   aspect-ratio: 1;
-  display: grid;
-  grid-template: auto / 1fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
+  display: grid;
+  padding: 1em;
+}
+
+.row-checker-grid-4 {
+  grid-template: auto / repeat(4, 1fr);
+}
+
+.row-checker-grid-5 {
+  grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+}
+
+.row-checker-grid-6 {
+  grid-template: repeat(2, 1fr) / repeat(3, 1fr);
 }
 
 .row-checker-dot {
-  width: 50%;
+  width: 1em;
   aspect-ratio: 1;
   border-radius: 50%;
   border: 0.15em solid #bbb;
