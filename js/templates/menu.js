@@ -21,5 +21,8 @@ export const menuTemplate = `
         <input type="color">
         <input type="color">
     </div>
-    <button class="button" id="start-game-button">Start game</button>
+    <div>
+        <a href="./about.html" class="button">About</a>
+        <button class="button" id="start-game-button">Start game</button>
+    </div>
 `;

@@ -35,7 +35,7 @@ a {
   align-items: center;
   flex-direction: column;
   width: 40em;
-  max-width: 100%;
+  max-width: calc(100% - 1em);
   animation: fadeIn 1s forwards;
   opacity: 0;
   height: 100vh;
