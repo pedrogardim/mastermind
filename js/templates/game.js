@@ -27,7 +27,7 @@ export const gameTemplate = (numOfColors) => `
     </div>
 `;
 
-export const createGameRow = (index, colors, checkArray) => `
+export const createGameRow = (index, colors, checkArray, roundsLeft) => `
     <div class="shadow game-row">
         <div class="row-counter"><span>${index}</span></div>
         <div class="row-color-indicator-wrapper">
@@ -43,6 +43,7 @@ export const createGameRow = (index, colors, checkArray) => `
               .map((type) => `<div class="row-checker-dot ${type}"></div>`)
               .join("")}
         </div>
+        <span class="row-rounds-left-label">Rounds left: ${roundsLeft}</span>
     </div>
 `;
 
