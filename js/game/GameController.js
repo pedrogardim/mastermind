@@ -20,9 +20,7 @@ export class GameController {
   numOfColors = 4;
   maxRounds = 10;
   startTime;
-  constructor() {
-    // this.init();
-  }
+  constructor() {}
   init({ userName, difficulty, colors }) {
     const difficultyInfo = Object.values(difficultyOptions)[difficulty];
 
@@ -102,7 +100,17 @@ export class GameController {
     if (this.gameEnded) return;
 
     const row = document.createElement("div");
-    row.innerHTML = createGameRow(this.round, this.selectedColors, checkArray);
+
+    document
+      .querySelectorAll(".row-rounds-left-label")
+      .forEach((e) => e.remove());
+
+    row.innerHTML = createGameRow(
+      this.round,
+      this.selectedColors,
+      checkArray,
+      this.maxRounds - this.round
+    );
     this.gameRows.append(row);
     this.gameRows.scrollTo({ top: 9999 });
 
@@ -119,7 +127,6 @@ export class GameController {
     }
 
     this.round++;
-    // this.selectedColors = [];
     this.selectedColorInput = 0;
     this.update();
   }
