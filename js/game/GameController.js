@@ -127,7 +127,6 @@ export class GameController {
     }
 
     this.round++;
-    // this.selectedColors = [];
     this.selectedColorInput = 0;
     this.update();
   }
