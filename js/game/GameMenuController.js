@@ -54,7 +54,8 @@ export class GameMenuController {
       });
     });
 
-    this.startButton.addEventListener("click", () => {
+    this.startButton.addEventListener("click", (e) => {
+      if (e.target.classList.contains("disabled")) return;
       this.startGame();
     });
 
@@ -71,6 +72,7 @@ export class GameMenuController {
       input.addEventListener("change", (e) => {
         this.colors[i] = e.target.value;
         saveColorsToStorage(this.colors);
+        this.update();
       });
     });
   }
@@ -108,6 +110,9 @@ export class GameMenuController {
     this.colorInputs = document.querySelectorAll("#color-inputs-wrapper > *");
 
     this.colorInputs.forEach((input, i) => (input.value = this.colors[i]));
+
+    const hasDuplicated = new Set(this.colors).size !== this.colors.length;
+    this.startButton.classList[hasDuplicated ? "add" : "remove"]("disabled");
 
     this.initializeColorInputsEvents();
 
