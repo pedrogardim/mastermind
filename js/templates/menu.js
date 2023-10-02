@@ -21,6 +21,7 @@ export const menuTemplate = `
         <input type="color">
         <input type="color">
     </div>
+    <img class="icon clickable" id="reset-colors-button" src="../assets/icons/refresh.svg" >
     <div>
         <a href="./about.html" class="button">About</a>
         <button class="button" id="start-game-button">Start game</button>

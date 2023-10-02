@@ -1,5 +1,5 @@
 import { getTimeDifferenceString, msToTimeString } from "../utils/time.js";
-import { readStorage } from "../utils/localStorage.js";
+import { readRankingFromStorage } from "../utils/localStorage.js";
 
 const difficulties = ["Easy", "Medium", "Hard"];
 
@@ -52,14 +52,14 @@ export const endGameMessage = (message, startDate) => `
     <h1 class="end-game-message">${message}</h1>
     <h3>Took ${getTimeDifferenceString(startDate)}s</h3>
     ${
-      readStorage().length > 0
+      readRankingFromStorage().length > 0
         ? `<div class="ranking-container">
         <div></div>
         <div>User Name</div>
         <div>Difficulty</div>
         <div>Rounds</div>
         <div>Time taken</div>
-        ${readStorage()
+        ${readRankingFromStorage()
           .map(
             ({ userName, rounds, time, difficulty }, i) =>
               `

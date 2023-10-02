@@ -112,6 +112,22 @@ input[type="text"] {
   width: 1.5em;
 }
 
+.icon.clickable {
+  cursor: pointer;
+}
+
+.icon.clickable:hover {
+  filter: brightness(0.8);
+}
+
+.icon.clickable:active {
+  filter: brightness(0.6);
+}
+
+#reset-colors-button {
+  margin-top: 0.4em;
+}
+
 .menu-difficulty-info-container {
   display: flex;
   align-items: center;

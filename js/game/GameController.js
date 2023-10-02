@@ -6,7 +6,7 @@ import {
 
 import confetti from "https://cdn.skypack.dev/canvas-confetti";
 
-import { pushToStorage } from "../utils/localStorage.js";
+import { pushGameEntryToStorage } from "../utils/localStorage.js";
 import { difficultyOptions } from "../utils/gameUtils.js";
 
 export class GameController {
@@ -131,7 +131,7 @@ export class GameController {
     this.update();
   }
   onWin() {
-    pushToStorage({
+    pushGameEntryToStorage({
       userName: this.userName,
       rounds: this.round,
       time: new Date() - this.startTime,
