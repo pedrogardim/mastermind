@@ -1,4 +1,4 @@
-import { menuTemplate } from "../templates/menu.js";
+import { menuTemplate } from "../templates/menuTemplates.js";
 import { gameController } from "../main.js";
 import { difficultyOptions } from "../utils/gameUtils.js";
 import {
@@ -16,13 +16,22 @@ const DEFAULT_COLORS = [
 ];
 
 export class GameMenuController {
+  input: HTMLElement;
+  difficultyButtons: NodeListOf<HTMLDivElement>;
+  colorInputs: NodeListOf<HTMLInputElement>;
+  colorInputsWrapper: HTMLElement;
+  startButton: HTMLElement;
+  colorNumIndicator: HTMLElement;
+  checkNumIndicator: HTMLElement;
+  resetColorsButton: HTMLElement;
+
   difficulty = 0;
   colors = [...DEFAULT_COLORS];
   constructor() {
     this.init();
   }
   init() {
-    const app = document.getElementById("app");
+    const app = document.getElementById("app") as HTMLElement;
     app.innerHTML = menuTemplate;
 
     this.initializeSelectors();
@@ -35,16 +44,25 @@ export class GameMenuController {
     this.update();
   }
   initializeSelectors() {
-    this.input = document.getElementById("name-input");
-    this.difficultyButtons = document.querySelectorAll(
-      "#difficulty-btn-group > *"
-    );
-    this.colorInputs = document.querySelectorAll("#color-inputs-wrapper > *");
-    this.colorInputsWrapper = document.getElementById("color-inputs-wrapper");
-    this.startButton = document.getElementById("start-game-button");
-    this.colorNumIndicator = document.getElementById("color-num-indicator");
-    this.checkNumIndicator = document.getElementById("check-num-indicator");
-    this.resetColorsButton = document.getElementById("reset-colors-button");
+    const getElementById = document.getElementById.bind(document);
+    const querySelectorAll = document.querySelectorAll.bind(document);
+
+    this.input = getElementById("name-input") as HTMLElement;
+    this.difficultyButtons = querySelectorAll("#difficulty-btn-group > *");
+    this.colorInputs = querySelectorAll("#color-inputs-wrapper > *");
+    this.colorInputsWrapper = getElementById(
+      "color-inputs-wrapper"
+    ) as HTMLElement;
+    this.startButton = getElementById("start-game-button") as HTMLElement;
+    this.colorNumIndicator = getElementById(
+      "color-num-indicator"
+    ) as HTMLElement;
+    this.checkNumIndicator = getElementById(
+      "check-num-indicator"
+    ) as HTMLElement;
+    this.resetColorsButton = getElementById(
+      "reset-colors-button"
+    ) as HTMLElement;
   }
   initializeEvents() {
     this.difficultyButtons.forEach((button, i) => {
@@ -55,7 +73,7 @@ export class GameMenuController {
     });
 
     this.startButton.addEventListener("click", (e) => {
-      if (e.target.classList.contains("disabled")) return;
+      if ((e.target as HTMLElement).classList.contains("disabled")) return;
       this.startGame();
     });
 
@@ -70,22 +88,22 @@ export class GameMenuController {
   initializeColorInputsEvents() {
     this.colorInputs.forEach((input, i) => {
       input.addEventListener("change", (e) => {
-        this.colors[i] = e.target.value;
+        this.colors[i] = (e.target as HTMLInputElement).value;
         saveColorsToStorage(this.colors);
         this.update();
       });
     });
   }
   startGame() {
-    const userName = document.getElementById("name-input").value;
-    gameController.init({
+    const userName = (this.input as HTMLInputElement).value;
+    gameController.init(
       userName,
-      difficulty: this.difficulty,
-      colors: this.colors.slice(
+      this.difficulty,
+      this.colors.slice(
         0,
         Object.values(difficultyOptions)[this.difficulty].colors
-      ),
-    });
+      )
+    );
   }
   update() {
     this.difficultyButtons.forEach((button, i) => {
@@ -116,7 +134,7 @@ export class GameMenuController {
 
     this.initializeColorInputsEvents();
 
-    this.colorNumIndicator.innerHTML = colors;
-    this.checkNumIndicator.innerHTML = checks;
+    this.colorNumIndicator.innerHTML = colors.toString();
+    this.checkNumIndicator.innerHTML = checks.toString();
   }
 }

@@ -2,26 +2,36 @@ import {
   gameTemplate,
   createGameRow,
   endGameMessage,
-} from "../templates/game.js";
+} from "../templates/gameTemplates.js";
 
+//@ts-ignore
 import confetti from "https://cdn.skypack.dev/canvas-confetti";
 
 import { pushGameEntryToStorage } from "../utils/localStorage.js";
 import { difficultyOptions } from "../utils/gameUtils.js";
 
 export class GameController {
-  userName;
-  difficulty;
-  targetColors;
-  selectedColors = [];
-  selectedColorInput = 0;
-  round = 1;
-  errorMessage = "";
-  numOfColors = 4;
-  maxRounds = 10;
-  startTime;
-  constructor() {}
-  init({ userName, difficulty, colors }) {
+  userName: string;
+  difficulty: number;
+  colors: string[];
+  targetColors: string[];
+  selectedColors: string[] = [];
+  selectedColorInput: number = 0;
+  round: number = 1;
+  errorMessage: string = "";
+  numOfColors: number = 4;
+  maxRounds: number = 10;
+  startTime: Date;
+  gameEnded: boolean;
+
+  app: HTMLElement;
+  gameRows: HTMLElement;
+  colorButtons: NodeListOf<HTMLDivElement>;
+  colorInputs: NodeListOf<HTMLInputElement>;
+  checkButton: HTMLElement;
+  errorMessageSpan: HTMLElement;
+
+  init(userName: string, difficulty: number, colors: string[]) {
     const difficultyInfo = Object.values(difficultyOptions)[difficulty];
 
     this.gameEnded = false;
@@ -32,7 +42,7 @@ export class GameController {
     this.maxRounds = difficultyInfo.checks;
     this.colors = colors;
 
-    this.app = document.getElementById("app");
+    this.app = document.getElementById("app") as HTMLElement;
     this.app.innerHTML = gameTemplate(difficultyInfo.colors);
 
     this.initSelectors();
@@ -49,11 +59,14 @@ export class GameController {
     this.update();
   }
   initSelectors() {
-    this.gameRows = document.getElementById("game-rows");
-    this.colorButtons = document.querySelectorAll(".color-button");
-    this.colorInputs = document.querySelectorAll(".game-color-input");
-    this.checkButton = document.getElementById("check-button");
-    this.errorMessageSpan = document.getElementById("error-message");
+    const getElementById = document.getElementById.bind(document);
+    const querySelectorAll = document.querySelectorAll.bind(document);
+
+    this.gameRows = getElementById("game-rows") as HTMLElement;
+    this.colorButtons = querySelectorAll(".color-button");
+    this.colorInputs = querySelectorAll(".game-color-input");
+    this.checkButton = getElementById("check-button") as HTMLElement;
+    this.errorMessageSpan = getElementById("error-message") as HTMLElement;
   }
   initEvents() {
     this.colorButtons.forEach((el, i) => {
@@ -84,8 +97,8 @@ export class GameController {
       this.gameRows.innerHTML = "";
     }
 
-    const correctPos = [];
-    const correctColors = [];
+    const correctPos: boolean[] = [];
+    const correctColors: boolean[] = [];
     this.selectedColors.forEach((color, index) => {
       correctPos[index] = color === this.targetColors[index];
       correctColors[index] = this.targetColors.includes(color);
@@ -134,7 +147,7 @@ export class GameController {
     pushGameEntryToStorage({
       userName: this.userName,
       rounds: this.round,
-      time: new Date() - this.startTime,
+      time: +new Date() - +this.startTime,
       difficulty: this.difficulty,
     });
     this.app.innerHTML = endGameMessage("You win!", this.startTime);
@@ -143,7 +156,7 @@ export class GameController {
     }
   }
   onLose() {
-    this.gameRows.style.opacity = 0;
+    this.gameRows.style.opacity = "0";
     this.gameRows.style.transform = "translateY(2em) scale(0.9)";
 
     setTimeout(() => {
