@@ -1,4 +1,3 @@
-import { menuTemplate } from "../templates/menu.js";
 import { gameController } from "../main.js";
 import { difficultyOptions } from "../utils/gameUtils.js";
 import {
@@ -22,7 +21,6 @@ export class GameMenuController {
     this.init();
   }
   init() {
-    const app = document.getElementById("app");
     app.innerHTML = menuTemplate;
 
     this.initializeSelectors();
@@ -35,16 +33,6 @@ export class GameMenuController {
     this.update();
   }
   initializeSelectors() {
-    this.input = document.getElementById("name-input");
-    this.difficultyButtons = document.querySelectorAll(
-      "#difficulty-btn-group > *"
-    );
-    this.colorInputs = document.querySelectorAll("#color-inputs-wrapper > *");
-    this.colorInputsWrapper = document.getElementById("color-inputs-wrapper");
-    this.startButton = document.getElementById("start-game-button");
-    this.colorNumIndicator = document.getElementById("color-num-indicator");
-    this.checkNumIndicator = document.getElementById("check-num-indicator");
-    this.resetColorsButton = document.getElementById("reset-colors-button");
   }
   initializeEvents() {
     this.difficultyButtons.forEach((button, i) => {
@@ -55,7 +43,6 @@ export class GameMenuController {
     });
 
     this.startButton.addEventListener("click", (e) => {
-      if (e.target.classList.contains("disabled")) return;
       this.startGame();
     });
 
@@ -70,22 +57,15 @@ export class GameMenuController {
   initializeColorInputsEvents() {
     this.colorInputs.forEach((input, i) => {
       input.addEventListener("change", (e) => {
-        this.colors[i] = e.target.value;
         saveColorsToStorage(this.colors);
         this.update();
       });
     });
   }
   startGame() {
-    const userName = document.getElementById("name-input").value;
-    gameController.init({
       userName,
-      difficulty: this.difficulty,
-      colors: this.colors.slice(
         0,
         Object.values(difficultyOptions)[this.difficulty].colors
-      ),
-    });
   }
   update() {
     this.difficultyButtons.forEach((button, i) => {
@@ -116,7 +96,5 @@ export class GameMenuController {
 
     this.initializeColorInputsEvents();
 
-    this.colorNumIndicator.innerHTML = colors;
-    this.checkNumIndicator.innerHTML = checks;
   }
 }

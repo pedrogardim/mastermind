@@ -2,7 +2,6 @@ import {
   gameTemplate,
   createGameRow,
   endGameMessage,
-} from "../templates/game.js";
 
 import confetti from "https://cdn.skypack.dev/canvas-confetti";
 
@@ -10,18 +9,6 @@ import { pushGameEntryToStorage } from "../utils/localStorage.js";
 import { difficultyOptions } from "../utils/gameUtils.js";
 
 export class GameController {
-  userName;
-  difficulty;
-  targetColors;
-  selectedColors = [];
-  selectedColorInput = 0;
-  round = 1;
-  errorMessage = "";
-  numOfColors = 4;
-  maxRounds = 10;
-  startTime;
-  constructor() {}
-  init({ userName, difficulty, colors }) {
     const difficultyInfo = Object.values(difficultyOptions)[difficulty];
 
     this.gameEnded = false;
@@ -32,7 +19,6 @@ export class GameController {
     this.maxRounds = difficultyInfo.checks;
     this.colors = colors;
 
-    this.app = document.getElementById("app");
     this.app.innerHTML = gameTemplate(difficultyInfo.colors);
 
     this.initSelectors();
@@ -49,11 +35,6 @@ export class GameController {
     this.update();
   }
   initSelectors() {
-    this.gameRows = document.getElementById("game-rows");
-    this.colorButtons = document.querySelectorAll(".color-button");
-    this.colorInputs = document.querySelectorAll(".game-color-input");
-    this.checkButton = document.getElementById("check-button");
-    this.errorMessageSpan = document.getElementById("error-message");
   }
   initEvents() {
     this.colorButtons.forEach((el, i) => {
@@ -84,8 +65,6 @@ export class GameController {
       this.gameRows.innerHTML = "";
     }
 
-    const correctPos = [];
-    const correctColors = [];
     this.selectedColors.forEach((color, index) => {
       correctPos[index] = color === this.targetColors[index];
       correctColors[index] = this.targetColors.includes(color);
@@ -134,7 +113,6 @@ export class GameController {
     pushGameEntryToStorage({
       userName: this.userName,
       rounds: this.round,
-      time: new Date() - this.startTime,
       difficulty: this.difficulty,
     });
     this.app.innerHTML = endGameMessage("You win!", this.startTime);
@@ -143,7 +121,6 @@ export class GameController {
     }
   }
   onLose() {
-    this.gameRows.style.opacity = 0;
     this.gameRows.style.transform = "translateY(2em) scale(0.9)";
 
     setTimeout(() => {
