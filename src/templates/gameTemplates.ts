@@ -1,7 +1,9 @@
 import { getTimeDifferenceString, msToTimeString } from "../utils/time.js";
+import { readRankingFromStorage, GameEntry } from "../utils/localStorage.js";
 
 const difficulties = ["Easy", "Medium", "Hard"];
 
+export const gameTemplate = (numOfColors: number) => `
     <h1 class="title">MasterMind</h1>
     <div id="game-rows" class="no-scrollbar">
       <div class="game-tutorial-container">
@@ -25,6 +27,12 @@ const difficulties = ["Easy", "Medium", "Hard"];
     </div>
 `;
 
+export const createGameRow = (
+  index: number,
+  colors: string[],
+  checkArray: string[],
+  roundsLeft: number
+) => `
     <div class="shadow game-row">
         <div class="row-counter"><span>${index}</span></div>
         <div class="row-color-indicator-wrapper">
@@ -44,6 +52,7 @@ const difficulties = ["Easy", "Medium", "Hard"];
     </div>
 `;
 
+export const endGameMessage = (message: string, startDate: Date) => `
     <h1 class="title">MasterMind</h1>
     <h1 class="end-game-message">${message}</h1>
     <h3>Took ${getTimeDifferenceString(startDate)}s</h3>
@@ -57,6 +66,7 @@ const difficulties = ["Easy", "Medium", "Hard"];
         <div>Time taken</div>
         ${readRankingFromStorage()
           .map(
+            ({ userName, rounds, time, difficulty }: GameEntry, i: number) =>
               `
             <div>${i + 1}</div>
             <div>${userName || "Anonymous"}</div>
