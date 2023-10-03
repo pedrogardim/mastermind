@@ -2,7 +2,7 @@
 
 ![GameboyJS](https://github.com/pedrogardim/mastermind/assets/81443264/2aded648-1aa6-419c-9938-ff447aa40d03)
 
-Welcome my web adaptation of the classic code-breaking board game **[Mastermind](<https://en.wikipedia.org/wiki/Mastermind_(board_game)>)**, made with HTML, CSS and JavaScript!
+Welcome my web adaptation of the classic code-breaking board game **[Mastermind](<https://en.wikipedia.org/wiki/Mastermind_(board_game)>)**, made with HTML, CSS and TypeScript!
 
 This was made as my 3rd project for the Geekshub Academy Full Stack Delevoper Bootcamp.
 
@@ -14,8 +14,7 @@ Simply [click here](https://pedrogardim.github.io/mastermind/) to access web app
 
 - **Minimalist UI with Transitions**: A clean and modern interface with smooth transitions to enhance the gameplay experience.
 - **Three Levels of Difficulty**: Whether you're a novice or a Mastermind maestro, choose a difficulty that matches your skill.
-- **Adaptive Design**: Seamlessly play on desktop, tablet, or mobile devices.
-- **Pure JavaScript Implementation**: Crafted without external dependencies for a swift and lightweight experience.
+- **Responsive Design**: Seamlessly play on desktop, tablet, or mobile devices.
 - **Local Leaderboard**: Every game you play is stored locally. Challenge yourself and track your progress with a leaderboard built from locally stored data.
 
 ## 🎮 How to Play
