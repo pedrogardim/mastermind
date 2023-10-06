@@ -11,27 +11,27 @@ import { pushGameEntryToStorage } from "../utils/localStorage.js";
 import { difficultyOptions } from "../utils/gameUtils.js";
 
 export class GameController {
-  userName: string;
-  difficulty: number;
-  colors: string[];
-  targetColors: string[];
-  selectedColors: string[] = [];
-  selectedColorInput: number = 0;
-  round: number = 1;
-  errorMessage: string = "";
-  numOfColors: number = 4;
-  maxRounds: number = 10;
-  startTime: Date;
-  gameEnded: boolean;
+  private userName: string;
+  private difficulty: number;
+  private colors: string[];
+  private targetColors: string[];
+  private selectedColors: string[] = [];
+  private selectedColorInput: number = 0;
+  private round: number = 1;
+  private errorMessage: string = "";
+  private numOfColors: number = 4;
+  private maxRounds: number = 10;
+  private startTime: Date;
+  private gameEnded: boolean;
 
-  app: HTMLElement;
-  gameRows: HTMLElement;
-  colorButtons: NodeListOf<HTMLDivElement>;
-  colorInputs: NodeListOf<HTMLInputElement>;
-  checkButton: HTMLElement;
-  errorMessageSpan: HTMLElement;
+  private app: HTMLElement;
+  private gameRows: HTMLElement;
+  private colorButtons: NodeListOf<HTMLDivElement>;
+  private colorInputs: NodeListOf<HTMLInputElement>;
+  private checkButton: HTMLElement;
+  private errorMessageSpan: HTMLElement;
 
-  init(userName: string, difficulty: number, colors: string[]) {
+  public startGame(userName: string, difficulty: number, colors: string[]) {
     const difficultyInfo = Object.values(difficultyOptions)[difficulty];
 
     this.gameEnded = false;
@@ -58,17 +58,21 @@ export class GameController {
     this.initEvents();
     this.update();
   }
-  initSelectors() {
-    const getElementById = document.getElementById.bind(document);
+
+  private initSelectors() {
+    const getElementById = (sel: string) =>
+      document.getElementById(sel) as HTMLElement;
+
     const querySelectorAll = document.querySelectorAll.bind(document);
 
-    this.gameRows = getElementById("game-rows") as HTMLElement;
+    this.gameRows = getElementById("game-rows");
     this.colorButtons = querySelectorAll(".color-button");
     this.colorInputs = querySelectorAll(".game-color-input");
-    this.checkButton = getElementById("check-button") as HTMLElement;
-    this.errorMessageSpan = getElementById("error-message") as HTMLElement;
+    this.checkButton = getElementById("check-button");
+    this.errorMessageSpan = getElementById("error-message");
   }
-  initEvents() {
+
+  private initEvents() {
     this.colorButtons.forEach((el, i) => {
       el.addEventListener("click", () => {
         this.selectedColors[this.selectedColorInput] = this.colors[i];
@@ -85,7 +89,8 @@ export class GameController {
     });
     this.checkButton.addEventListener("click", this.onCheck.bind(this));
   }
-  onCheck() {
+
+  private onCheck() {
     const hasError = this.selectedColors.length < this.numOfColors;
     this.errorMessage = hasError ? "You have some empty colors" : "";
     this.update();
@@ -99,6 +104,7 @@ export class GameController {
 
     const correctPos: boolean[] = [];
     const correctColors: boolean[] = [];
+
     this.selectedColors.forEach((color, index) => {
       correctPos[index] = color === this.targetColors[index];
       correctColors[index] = this.targetColors.includes(color);
@@ -124,6 +130,7 @@ export class GameController {
       checkArray,
       this.maxRounds - this.round
     );
+
     this.gameRows.append(row);
     this.gameRows.scrollTo({ top: 9999 });
 
@@ -143,7 +150,8 @@ export class GameController {
     this.selectedColorInput = 0;
     this.update();
   }
-  onWin() {
+
+  private onWin() {
     pushGameEntryToStorage({
       userName: this.userName,
       rounds: this.round,
@@ -155,7 +163,8 @@ export class GameController {
       setTimeout(() => confetti(), i * 200);
     }
   }
-  onLose() {
+
+  private onLose() {
     this.gameRows.style.opacity = "0";
     this.gameRows.style.transform = "translateY(2em) scale(0.9)";
 
@@ -163,7 +172,8 @@ export class GameController {
       this.app.innerHTML = endGameMessage("You lose!", this.startTime);
     }, 1000);
   }
-  update() {
+
+  private update() {
     const disabled = this.selectedColors.length < this.numOfColors;
     this.checkButton.classList[disabled ? "add" : "remove"]("disabled");
 

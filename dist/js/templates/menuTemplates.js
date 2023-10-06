@@ -1,7 +1,7 @@
 export const menuTemplate = `
     <h1 class="title">MasterMind</h1>
     <span class="label">Your name</span>
-    <input type="text" id="name-input">
+    <input type="text" id="name-input" maxlength="16" placeholder="Insert your name">
     <span class="label">Difficulty</span>
     <div class="button-group" id="difficulty-btn-group">
         <div id="btn-easy">Easy</div>
