@@ -96,7 +96,8 @@ export class GameMenuController {
 
   private startGame() {
     const userName = (this.input as HTMLInputElement).value;
-    gameController.init(
+
+    gameController.startGame(
       userName,
       this.difficulty,
       this.colors.slice(
@@ -108,15 +109,8 @@ export class GameMenuController {
 
   private update() {
     this.difficultyButtons.forEach((button, i) => {
-      button.classList[this.difficulty === i ? "add" : "remove"](
-        "btn-group-active"
-      );
-    });
-
-    this.difficultyButtons.forEach((button, i) => {
-      button.classList[this.difficulty === i ? "add" : "remove"](
-        "btn-group-active"
-      );
+      const action = this.difficulty === i ? "add" : "remove";
+      button.classList[action]("btn-group-active");
     });
 
     const { colors, checks } =

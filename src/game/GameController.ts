@@ -31,7 +31,7 @@ export class GameController {
   private checkButton: HTMLElement;
   private errorMessageSpan: HTMLElement;
 
-  public init(userName: string, difficulty: number, colors: string[]) {
+  public startGame(userName: string, difficulty: number, colors: string[]) {
     const difficultyInfo = Object.values(difficultyOptions)[difficulty];
 
     this.gameEnded = false;
@@ -104,6 +104,7 @@ export class GameController {
 
     const correctPos: boolean[] = [];
     const correctColors: boolean[] = [];
+
     this.selectedColors.forEach((color, index) => {
       correctPos[index] = color === this.targetColors[index];
       correctColors[index] = this.targetColors.includes(color);
@@ -129,7 +130,7 @@ export class GameController {
       checkArray,
       this.maxRounds - this.round
     );
-    
+
     this.gameRows.append(row);
     this.gameRows.scrollTo({ top: 9999 });
 
