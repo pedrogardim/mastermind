@@ -16,21 +16,23 @@ const DEFAULT_COLORS = [
 ];
 
 export class GameMenuController {
-  input: HTMLElement;
-  difficultyButtons: NodeListOf<HTMLDivElement>;
-  colorInputs: NodeListOf<HTMLInputElement>;
-  colorInputsWrapper: HTMLElement;
-  startButton: HTMLElement;
-  colorNumIndicator: HTMLElement;
-  checkNumIndicator: HTMLElement;
-  resetColorsButton: HTMLElement;
+  private input: HTMLElement;
+  private difficultyButtons: NodeListOf<HTMLDivElement>;
+  private colorInputs: NodeListOf<HTMLInputElement>;
+  private colorInputsWrapper: HTMLElement;
+  private startButton: HTMLElement;
+  private colorNumIndicator: HTMLElement;
+  private checkNumIndicator: HTMLElement;
+  private resetColorsButton: HTMLElement;
 
-  difficulty = 0;
-  colors = [...DEFAULT_COLORS];
+  private difficulty = 0;
+  private colors = [...DEFAULT_COLORS];
+
   constructor() {
     this.init();
   }
-  init() {
+
+  private init() {
     const app = document.getElementById("app") as HTMLElement;
     app.innerHTML = menuTemplate;
 
@@ -43,28 +45,24 @@ export class GameMenuController {
     this.initializeEvents();
     this.update();
   }
-  initializeSelectors() {
-    const getElementById = document.getElementById.bind(document);
+
+  private initializeSelectors() {
+    const getElementById = (sel: string) =>
+      document.getElementById(sel) as HTMLElement;
+
     const querySelectorAll = document.querySelectorAll.bind(document);
 
-    this.input = getElementById("name-input") as HTMLElement;
+    this.input = getElementById("name-input");
     this.difficultyButtons = querySelectorAll("#difficulty-btn-group > *");
     this.colorInputs = querySelectorAll("#color-inputs-wrapper > *");
-    this.colorInputsWrapper = getElementById(
-      "color-inputs-wrapper"
-    ) as HTMLElement;
-    this.startButton = getElementById("start-game-button") as HTMLElement;
-    this.colorNumIndicator = getElementById(
-      "color-num-indicator"
-    ) as HTMLElement;
-    this.checkNumIndicator = getElementById(
-      "check-num-indicator"
-    ) as HTMLElement;
-    this.resetColorsButton = getElementById(
-      "reset-colors-button"
-    ) as HTMLElement;
+    this.colorInputsWrapper = getElementById("color-inputs-wrapper");
+    this.startButton = getElementById("start-game-button");
+    this.colorNumIndicator = getElementById("color-num-indicator");
+    this.checkNumIndicator = getElementById("check-num-indicator");
+    this.resetColorsButton = getElementById("reset-colors-button");
   }
-  initializeEvents() {
+
+  private initializeEvents() {
     this.difficultyButtons.forEach((button, i) => {
       button.addEventListener("click", () => {
         this.difficulty = i;
@@ -85,7 +83,8 @@ export class GameMenuController {
 
     this.initializeColorInputsEvents();
   }
-  initializeColorInputsEvents() {
+
+  private initializeColorInputsEvents() {
     this.colorInputs.forEach((input, i) => {
       input.addEventListener("change", (e) => {
         this.colors[i] = (e.target as HTMLInputElement).value;
@@ -94,7 +93,8 @@ export class GameMenuController {
       });
     });
   }
-  startGame() {
+
+  private startGame() {
     const userName = (this.input as HTMLInputElement).value;
     gameController.init(
       userName,
@@ -105,7 +105,8 @@ export class GameMenuController {
       )
     );
   }
-  update() {
+
+  private update() {
     this.difficultyButtons.forEach((button, i) => {
       button.classList[this.difficulty === i ? "add" : "remove"](
         "btn-group-active"
