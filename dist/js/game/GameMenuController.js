@@ -27,7 +27,7 @@ export class GameMenuController {
         this.update();
     }
     initializeSelectors() {
-        const getElementById = document.getElementById.bind(document);
+        const getElementById = (sel) => document.getElementById(sel);
         const querySelectorAll = document.querySelectorAll.bind(document);
         this.input = getElementById("name-input");
         this.difficultyButtons = querySelectorAll("#difficulty-btn-group > *");
@@ -68,14 +68,12 @@ export class GameMenuController {
     }
     startGame() {
         const userName = this.input.value;
-        gameController.init(userName, this.difficulty, this.colors.slice(0, Object.values(difficultyOptions)[this.difficulty].colors));
+        gameController.startGame(userName, this.difficulty, this.colors.slice(0, Object.values(difficultyOptions)[this.difficulty].colors));
     }
     update() {
         this.difficultyButtons.forEach((button, i) => {
-            button.classList[this.difficulty === i ? "add" : "remove"]("btn-group-active");
-        });
-        this.difficultyButtons.forEach((button, i) => {
-            button.classList[this.difficulty === i ? "add" : "remove"]("btn-group-active");
+            const action = this.difficulty === i ? "add" : "remove";
+            button.classList[action]("btn-group-active");
         });
         const { colors, checks } = Object.values(difficultyOptions)[this.difficulty];
         this.colorInputsWrapper.innerHTML = Array(colors)

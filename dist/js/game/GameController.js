@@ -12,7 +12,7 @@ export class GameController {
         this.numOfColors = 4;
         this.maxRounds = 10;
     }
-    init(userName, difficulty, colors) {
+    startGame(userName, difficulty, colors) {
         const difficultyInfo = Object.values(difficultyOptions)[difficulty];
         this.gameEnded = false;
         this.round = 1;
@@ -30,7 +30,7 @@ export class GameController {
         this.update();
     }
     initSelectors() {
-        const getElementById = document.getElementById.bind(document);
+        const getElementById = (sel) => document.getElementById(sel);
         const querySelectorAll = document.querySelectorAll.bind(document);
         this.gameRows = getElementById("game-rows");
         this.colorButtons = querySelectorAll(".color-button");
